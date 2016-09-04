@@ -25,9 +25,10 @@ RUN unzip 02ad8ec492ffca8adb6723bd4b47f42a90bcae91.zip
 RUN mv pyspark-cassandra-02ad8ec492ffca8adb6723bd4b47f42a90bcae91 pyspark-cassandra
 RUN python /pyspark-cassandra/python/setup.py install
 RUN pip install pytz
+RUN echo "${SPARKMASTER} spark-master.test.com spark-master" >> /etc/hosts
 
 ENV SPARK_HOME /spark-1.6.2
 
-EXPOSE 7077 8080 6066 8088 8042 4040 50030
+EXPOSE 7077 8080 8081 6066 8088 8042 4040 50030
 
 CMD ["/spark-1.6.2/bin/spark-class", "org.apache.spark.deploy.worker.Worker", "spark://spark-master:7077"]
