@@ -25,7 +25,10 @@ RUN unzip 02ad8ec492ffca8adb6723bd4b47f42a90bcae91.zip
 RUN mv pyspark-cassandra-02ad8ec492ffca8adb6723bd4b47f42a90bcae91 pyspark-cassandra
 RUN python /pyspark-cassandra/python/setup.py install
 RUN pip install pytz
-RUN echo "${SPARKMASTER} spark-master.test.com spark-master" >> /etc/hosts
+
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+ENTRYPOINT ["/docker-entrypoint.sh"]
+RUN chmod +x /docker-entrypoint.sh
 
 ENV SPARK_HOME /spark-1.6.2
 
